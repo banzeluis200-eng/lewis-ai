@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lewis AI</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: auto;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 18px;
+      text-align: center;
+      background: #111827;
+      border-bottom: 1px solid #334155;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #94a3b8;
+    }
+
+    #chat {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .mensagem {
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+
+    .luis {
+      margin-left: auto;
+      background: #2563eb;
+    }
+
+    .lewis {
+      margin-right: auto;
+      background: #1e293b;
+    }
+
+    .entrada {
+      display: flex;
+      padding: 12px;
+      background: #111827;
+      gap: 8px;
+    }
+
+    input {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 0 18px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <h1>🧠 Lewis AI</h1>
+    <p>Assistente pessoal do Luis</p>
+  </header>
+
+  <div id="chat">
+
+    <div class="mensagem lewis">
+      Olá Luis! 👋<br>
+      Eu sou a Lewis AI.
+    </div>
+
+  </div>
+
+  <div class="entrada">
+
+    <input
+      id="pergunta"
+      type="text"
+      placeholder="Escreve uma mensagem..."
+      onkeydown="if(event.key === 'Enter') enviar()"
+    >
+
+    <button onclick="enviar()">Enviar</button>
+
+  </div>
+
+</div>
+
+<script>
+
+function adicionarMensagem(texto, classe) {
+
+  const chat = document.getElementById("chat");
+
+  const mensagem = document.createElement("div");
+
+  mensagem.className = "mensagem " + classe;
+
+  mensagem.innerHTML = texto;
+
+  chat.appendChild(mensagem);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+
+function enviar() {
+
+  const campo = document.getElementById("pergunta");
+
+  const pergunta = campo.value.trim();
+
+  if (!pergunta) return;
+
+  adicionarMensagem(pergunta, "luis");
+
+  campo.value = "";
+
+  let resposta = "";
+
+  const texto = pergunta.toLowerCase();
+
+  if (
+    texto.includes("quem te criou") ||
+    texto.includes("quem criou a lewis") ||
+    texto.includes("quem te fez") ||
+    texto.includes("quem é teu criador") ||
+    texto.includes("quem e teu criador")
+  ) {
+
+    resposta = "Fui criada pelo Luis. 🧠 Ele é o meu criador.";
+
+  }
+
+  else if (
+    texto.includes("qual é o teu nome") ||
+    texto.includes("qual e o teu nome") ||
+    texto.includes("como te chamas")
+  ) {
+
+    resposta = "O meu nome é Lewis AI. 🧠";
+
+  }
+
+  else if (
+    texto.includes("como me chamo") ||
+    texto.includes("qual é o meu nome") ||
+    texto.includes("qual e o meu nome")
+  ) {
+
+    resposta = "O teu nome é Luis. 😎";
+
+  }
+
+  else if (
+    texto === "olá" ||
+    texto === "ola" ||
+    texto === "oi"
+  ) {
+
+    resposta = "Olá Luis! 👋 Como estás?";
+
+  }
+
+  else {
+
+    resposta = "Ainda estou a aprender a responder a essa pergunta. 🧠";
+
+  }
+
+  setTimeout(function() {
+
+    adicionarMensagem(resposta, "lewis");
+
+  }, 500);
+
+}
+
+</script>
+
+</body>
+</html>
